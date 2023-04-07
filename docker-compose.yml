@@ -1,0 +1,55 @@
+###############-VERSION-###################
+version: '3.7'
+
+################-SERVICIOS-################
+
+services:
+
+###################-CLIENTE-GRPC-#########################   
+  client:
+    container_name: client
+    build: ./backend/reader
+    restart: always
+    volumes:
+      - ./backend/reader:/reader
+    depends_on:
+      - server
+    ports:
+      - "3000:3000"
+
+###################-SERVIDOR-GRPC-#########################  
+  server:
+    container_name: server
+    build: ./backend/server
+    restart: always
+    volumes:
+      - ./backend/server:/server
+    depends_on:
+      - postgres
+    ports:
+      - "50051:50051"
+
+#################-SCRAPPER-##########################
+  scrapper:
+    container_name: scrapper
+    build: ./Scrapper
+    restart: always
+    volumes:
+      - ./Scrapper:/app
+    ports:
+      - "8000:5000"
+
+#################-POSTGRES-##########################
+  postgres:
+    container_name: postgres
+    image: postgres:15-alpine
+    volumes:
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=proyecto
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRESQL_PASSWORD=postgres
+      - PGDATA=/var/lib/postgresql/data/some_name/
+    ports:
+      - "5433:5432"
