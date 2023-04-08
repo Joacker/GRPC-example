@@ -4,5 +4,6 @@ WORKDIR /app
 RUN pip install --upgrade pip
 RUN pip install -r requirements.txt
 RUN pip install -U flask-cors
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+
+#run im bash mode
+CMD ["python", "app.py"]

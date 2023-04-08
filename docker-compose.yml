@@ -32,10 +32,10 @@ services:
 #################-SCRAPPER-##########################
   scrapper:
     container_name: scrapper
-    build: ./Scrapper
+    build: ./scrapper
     restart: always
     volumes:
-      - ./Scrapper:/app
+      - ./scrapper:/app
     ports:
       - "8000:5000"
 

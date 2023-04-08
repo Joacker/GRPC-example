@@ -45,17 +45,7 @@ def getCoins():
     response = MessageToJson(response)
     response = json.loads(response)
     print(response)
-    return jsonify(response)
-
-'''
-def main():
-    with grpc.insecure_channel('server:50051') as channel:
-        stub = example_pb2_grpc.DataStub(channel)
-        request = example_pb2.EmptyMessage()
-        result = stub.GetWeatherData(request)
-        print(result.temp)
-        print(f'GRPC recived: {result.ack}')
- '''       
+    return jsonify(response)    
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=3000, debug=True)
